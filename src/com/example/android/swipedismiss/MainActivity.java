@@ -20,6 +20,7 @@ package com.example.android.swipedismiss;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -58,11 +59,17 @@ public class MainActivity extends ListActivity {
                         listView,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
                             @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions,int Direction) {
                                 for (int position : reverseSortedPositions) {
                                     mAdapter.remove(mAdapter.getItem(position));
                                 }
                                 mAdapter.notifyDataSetChanged();
+                                if (Direction==SwipeDismissListViewTouchListener.MOVE_LEFT){
+                                    Log.i("data", "Direction - LEFT");
+                                };
+                                if (Direction==SwipeDismissListViewTouchListener.MOVE_RIGHT){
+                                    Log.i("data", "Direction - RIGHT");
+                                };
                             }
                         });
         listView.setOnTouchListener(touchListener);

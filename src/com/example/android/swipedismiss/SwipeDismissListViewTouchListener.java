@@ -99,6 +99,10 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     private View mDownView;
     private boolean mPaused;
 
+    static public int MOVE_LEFT=12;
+    static public int MOVE_RIGHT=42;
+    private int iOutDirection;
+
     /**
      * The callback interface used by {@link SwipeDismissListViewTouchListener} to inform its client
      * about a successful dismissal of one or more list item positions.
@@ -112,7 +116,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
          * @param reverseSortedPositions An array of positions to dismiss, sorted in descending
          *                               order for convenience.
          */
-        void onDismiss(ListView listView, int[] reverseSortedPositions);
+        void onDismiss(ListView listView, int[] reverseSortedPositions,int iOutDirection);
     }
 
     /**
@@ -250,6 +254,11 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                             .setDuration(mAnimationTime)
                             .setListener(null);
                 }
+                if (deltaX>0){
+                    iOutDirection=SwipeDismissListViewTouchListener.MOVE_RIGHT;
+                }else{
+                    iOutDirection=SwipeDismissListViewTouchListener.MOVE_LEFT;
+                }
                 mVelocityTracker = null;
                 mDownX = 0;
                 mDownView = null;
@@ -328,7 +337,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     for (int i = mPendingDismisses.size() - 1; i >= 0; i--) {
                         dismissPositions[i] = mPendingDismisses.get(i).position;
                     }
-                    mCallback.onDismiss(mListView, dismissPositions);
+                    mCallback.onDismiss(mListView, dismissPositions,iOutDirection);
 
                     ViewGroup.LayoutParams lp;
                     for (PendingDismissData pendingDismiss : mPendingDismisses) {

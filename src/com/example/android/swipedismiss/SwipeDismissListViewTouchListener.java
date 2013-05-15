@@ -102,6 +102,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     static public int MOVE_LEFT=12;
     static public int MOVE_RIGHT=42;
     private int iOutDirection;
+    public Boolean notEndAnimateOfHeight=false;
 
     /**
      * The callback interface used by {@link SwipeDismissListViewTouchListener} to inform its client
@@ -357,7 +358,9 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                lp.height = (Integer) valueAnimator.getAnimatedValue();
+                if (!notEndAnimateOfHeight){
+                    lp.height = (Integer) valueAnimator.getAnimatedValue();
+                }
                 dismissView.setLayoutParams(lp);
             }
         });

@@ -58,6 +58,7 @@ public class MainActivity extends ListActivity {
                 new SwipeDismissListViewTouchListener(
                         listView,
                         new SwipeDismissListViewTouchListener.OnDismissCallback() {
+
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions,int Direction) {
                                 for (int position : reverseSortedPositions) {
@@ -72,6 +73,9 @@ public class MainActivity extends ListActivity {
                                 };
                             }
                         });
+        //turn off animation of height => 0
+        //touchListener.notEndAnimateOfHeight=true;
+
         listView.setOnTouchListener(touchListener);
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.

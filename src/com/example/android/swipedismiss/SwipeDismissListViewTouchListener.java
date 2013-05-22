@@ -176,7 +176,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
             mViewWidth = mListView.getWidth();
         }
 
-        switch (motionEvent.getActionMasked()) {
+        switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 if (mPaused) {
                     return false;
@@ -281,9 +281,12 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
                     // Cancel ListView's touch (un-highlighting the item)
                     MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
-                    cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
+                    cancelEvent.setAction(MotionEvent.ACTION_CANCEL);
+                    /*
+                                        cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
                             (motionEvent.getActionIndex()
                                     << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
+                     */
                     mListView.onTouchEvent(cancelEvent);
                 }
 
